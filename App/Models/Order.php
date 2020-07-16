@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    // protected $table = "items";
+    protected $table = "orders";
     // protected $timestamp = true;
     protected $guarded = ["id", "customer_id", "amount", "user_id"]; //mass input
 

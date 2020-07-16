@@ -12,14 +12,14 @@ class ItemController
     {
         $items = Item::all();
 
-        return response()->json($items);
+        return $items;
     }
 
     public function findById($id)
     {
         $itemId = Item::find($id);
 
-        return response()->json($itemId);
+        return $itemId;
     }
 
     public function create(Request $request)
@@ -30,7 +30,7 @@ class ItemController
         $item->price = $request->input('price');
         $item->save();
 
-        return response()->json($item);
+        return $item;
     }
 
     public function update(Request $request, $id)
@@ -41,7 +41,7 @@ class ItemController
         $item->price = $request->input('price');
         $item->save();
 
-        return response()->json($item);
+        return $item;
     }
 
     public function delete(Request $request, $id)
@@ -49,6 +49,6 @@ class ItemController
         $item = Item::find($id);
         $item->delete();
 
-        return response()->json($item);
+        return $item;
     }
 }
