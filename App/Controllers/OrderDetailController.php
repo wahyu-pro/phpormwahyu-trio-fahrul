@@ -40,7 +40,7 @@ class OrderDetailController
         return $orderDetail;
     }
 
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
         $orderDetail = OrderDetail::find($id);
         $orderDetail->delete();

@@ -43,7 +43,7 @@ class OrderController
         return $order;
     }
 
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
         $order = Order::find($id);
         $order->delete();
