@@ -6,9 +6,9 @@
         "illuminate/events": "^7.20"
     },
     "autoload": {
-        "files": ["app/db.php"],
+        "files": ["App/db.php"],
         "psr-4": {
-            "Demo\\": "app/"
+            "Demo\\": "App/"
         }
     }
 }
