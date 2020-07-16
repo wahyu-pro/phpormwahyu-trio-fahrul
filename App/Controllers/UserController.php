@@ -2,7 +2,7 @@
 
 namespace Demo\Controllers;
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 
 use Demo\Models\User;
 
@@ -20,27 +20,31 @@ class UserController
         return $userId;
     }
 
-    public function create(Request $request)
+    public function create($object)
     {
         $user = new User();
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
+        // $user->name = $request->input('name');
+        // $user->email = $request->input('email');
+        $user->name = $object->name;
+        $user->email = $object->email;
         $user->save();
 
         return $user;
     }
 
-    public function update(Request $request, $id)
+    public function update($object, $id)
     {
         $user = User::find($id);
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
+        // $user->name = $request->input('name');
+        // $user->email = $request->input('email');
+        $user->name = $object->name;
+        $user->email = $object->email;
         $user->save();
 
         return $user;
     }
 
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
         $user = User::find($id);
         $user->delete();
