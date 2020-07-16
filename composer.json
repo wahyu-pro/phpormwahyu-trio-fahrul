@@ -4,5 +4,11 @@
     "require": {
         "illuminate/database": "^7.20",
         "illuminate/events": "^7.20"
+    },
+    "autoload": {
+        "files": ["app/db.php"],
+        "psr-4": {
+            "Demo\\": "app/"
+        }
     }
 }
