@@ -10,8 +10,8 @@ class User extends Model
     // protected $timestamp = true;
     protected $guarded = ["id", "name", "email"]; //mass input
 
-    // public function todos()
-    // {
-    //     return $this->hashMany('Demo\Models\Todo');
-    // }
+    public function order()
+    {
+        return $this->hashMany('Demo\Models\Order');
+    }
 }

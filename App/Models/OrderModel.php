@@ -10,8 +10,13 @@ class Order extends Model
     // protected $timestamp = true;
     protected $guarded = ["id", "customer_id", "amount", "user_id"]; //mass input
 
-    // public function todos()
-    // {
-    //     return $this->hashMany('Demo\Models\Todo');
-    // }
+    public function user()
+    {
+        return $this->belongsTo('Demo\Models\User');
+    }
+
+    public function orderdetail()
+    {
+        return $this->hashMany('Demo\Models\OrderDetail');
+    }
 }

@@ -10,8 +10,8 @@ class Item extends Model
     // protected $timestamp = true;
     protected $guarded = ["id", "name", "description", "price"]; //mass input
 
-    // public function todos()
-    // {
-    //     return $this->hashMany('Demo\Models\Todo');
-    // }
+    public function orderdetail()
+    {
+        return $this->hashMany('Demo\Models\OrderDetail');
+    }
 }
