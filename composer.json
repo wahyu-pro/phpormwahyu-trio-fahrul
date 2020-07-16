@@ -1,0 +1,8 @@
+{
+    "name": "orm-php/orm-php",
+    "description": "Ini Aplikasi Web Orm php",
+    "require": {
+        "illuminate/database": "^7.20",
+        "illuminate/events": "^7.20"
+    }
+}
