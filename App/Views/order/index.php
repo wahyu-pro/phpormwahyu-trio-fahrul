@@ -1,11 +1,11 @@
 <?php
 
-require __DIR__.'/../../../vendor/autoload.php';
+require __DIR__ . '/../../../vendor/autoload.php';
 
-use Demo\Models\User;
+// use Demo\Models\User;
 // use Demo\Models\Item;
 // use Demo\Models\Order;
-use Demo\Models\OrderDetail;
+// use Demo\Models\OrderDetail;
 
 use Demo\Controllers\UserController;
 use Demo\Controllers\OrderController;
@@ -17,9 +17,10 @@ $order = new OrderController();
 $item = new ItemController();
 $user = new UserController();
 $orderDetail = new OrderDetailController();
+var_dump($order->index());die;
 if (isset($_POST["add"])) {
-    $order->create((object)["customer_id"=>$_POST["customer_id"], "amount"=>$_POST["amount"], "user_id"=>$_POST["user_id"]]);
-    $orderDetail->create((object)["order_id"=>$_POST["order_id"], "item_id"=>$_POST["item_id"]]);
+    $order->create((object)["customer_id" => $_POST["customer_id"], "amount" => $_POST["amount"], "user_id" => $_POST["user_id"]]);
+    $orderDetail->create((object)["order_id" => $order->index()->last()->id, "item_id" => $_POST["item_id"]]);
 }
 
 
@@ -43,21 +44,28 @@ if (isset($_POST["add"])) {
 
 <body>
 
-    <nav class="navbar shadow navbar-light bg-light">
-        <a class="navbar-brand ml-2">Navbar</a>
-        <form class="form-inline">
-            <input class="form-control src" type="search" placeholder="Search" aria-label="Search">
-        </form>
-        <button type="button" class="btn btn-cream mr-3 shadow tampilModalTambah" data-toggle="modal" data-target="#exampleModal">Add</button>
+    <nav class="navbar shadow navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <!-- <a class="nav-item nav-link active" href="#">User <span class="sr-only">(current)</span></a> -->
+                <a class="nav-item nav-link" href="http://localhost/web-orm/index.php">User</a>
+                <a class="nav-item nav-link" href="http://localhost/web-orm/app/views/order/index.php">Order</a>
+                <a class="nav-item nav-link" href="http://localhost/web-orm/app/views/item/index.php">Items</a>
+            </div>
+        </div>
+        <button type="button" class="btn btn-cream mr-3 shadow" data-toggle="modal" data-target="#exampleModal">Add</button>
     </nav>
     <div class="container">
         <table class="table shadow mt-3">
             <thead class="thead-cream">
                 <tr>
                     <th scope="col">No</th>
-                    <th scope="col">Customer id</th>
+                    <th scope="col">Name Customer</th>
                     <th scope="col">Amount</th>
-                    <th scope="col">User name</th>
                     <th scope="col">Order Id</th>
                     <th scope="col">Item Id</th>
                     <th scope="col">Action</th>
@@ -65,22 +73,17 @@ if (isset($_POST["add"])) {
             </thead>
             <tbody>
                 <?php $no = 1; ?>
-                <?php foreach($order->index() as $row):
-                    //   print_r($row);
-                ?>
-
-
-                <tr>
-                    <th scope="row"><?= $no++; ?></th>
-                    <td><?= $row['customer_id']; ?></td>
-                    <td><?= $row['amount']; ?></td>
-                    <td><?= $row->User["name"]; ?> </td>
-                    <td>
-                        <a href="ubah.php?id=<?= $row['id']; ?>" class="btn-outline-primary"><i class="fa fa-edit"></i></a>
-                        <a href="hapus.php?id=<?= $row['id']; ?>" class="btn-outline-danger"><i class="fa fa-trash-o"></i></a>
-                    </td>
-                </tr>
-                <?php $no++; ?>
+                <?php foreach ($order->index() as $row) : ?>
+                    <tr>
+                        <th scope="row"><?= $no++; ?></th>
+                        <td><?= $row['customer_id']; ?></td>
+                        <td><?= $row['amount']; ?></td>
+                        <td>
+                            <a href="ubah.php?id=<?= $row['id']; ?>" class="btn-outline-primary"><i class="fa fa-edit"></i></a>
+                            <a href="hapus.php?id=<?= $row['id']; ?>" class="btn-outline-danger"><i class="fa fa-trash-o"></i></a>
+                        </td>
+                    </tr>
+                    <?php $no++; ?>
                 <?php endforeach; ?>
             </tbody>
         </table>
@@ -105,27 +108,25 @@ if (isset($_POST["add"])) {
                             <input type="number" class="form-control" id="amount" name="amount" placeholder="Input Amount">
                         </div>
                         <div class="form-group">
-                        <label>User Name</label>
+                            <label>User Name</label>
                             <select class="custom-select" name="user_id" required>
-                            <option selected disabled value="">Choose...</option>
-                                <?php foreach ($user->index() as $data):?>
-                                    <option  value='<?php echo $data["id"]; ?>'><?php echo $data["name"]?></option>
-                                <?php endforeach;?>
+                                <option selected disabled value="">Choose...</option>
+                                <?php foreach ($user->index() as $data) : ?>
+                                    <option value='<?php echo $data["id"]; ?>'><?php echo $data["name"] ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="form-group">
-                        <label>Item</label>
+                            <label>Item</label>
                             <select class="custom-select" name="item_id" required>
-                            <option selected disabled value="">Choose...</option>
-                                <?php foreach ($item->index() as $data):?>
-                                    <option  value='<?php echo $data["id"]; ?>'><?php echo $data["name"]?></option>
-                                <?php endforeach;?>
+                                <option selected disabled value="">Choose...</option>
+                                <?php foreach ($item->index() as $data) : ?>
+                                    <option value='<?php echo $data["id"]; ?>'><?php echo $data["name"] ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
-                        <?php foreach ($order->index() as $data):?>
-                        <input type="hidden" name="order_id" value="<?php echo $data["id"]; ?>">
-                        <?php endforeach;?>
-                        
+                            <input type="hidden" name="order_id">
+
 
                         <div class="modal-footer">
                             <button type="submit" name="add" class="btn btn-save">Add</button>
@@ -135,7 +136,7 @@ if (isset($_POST["add"])) {
             </div>
         </div>
     </div>
-    
+
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
     </script>

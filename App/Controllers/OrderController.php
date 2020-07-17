@@ -13,8 +13,7 @@ class OrderController
 {
     public function index()
     {
-        $orders = Order::all();
-        
+        $orders = Order::with('order_detail.order');
         return $orders;
     }
 

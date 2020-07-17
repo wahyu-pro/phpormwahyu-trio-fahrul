@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__.'/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
 use Demo\Models\UserModel;
 use Demo\Models\Item;
@@ -14,7 +14,7 @@ use Demo\Controllers\OrderDetailController;
 
 $user = new UserController();
 if (isset($_POST["add"])) {
-    $user->create((object)["name"=>$_POST["name"], "email"=>$_POST["email"]]);
+    $user->create((object)["name" => $_POST["name"], "email" => $_POST["email"]]);
 }
 
 // echo $user->index();
@@ -63,12 +63,20 @@ if (isset($_POST["add"])) {
 
 <body>
 
-    <nav class="navbar shadow navbar-light bg-light">
-        <a class="navbar-brand ml-2">Navbar</a>
-        <form class="form-inline">
-            <input class="form-control src" type="search" placeholder="Search" aria-label="Search">
-        </form>
-        <button type="button" class="btn btn-cream mr-3 shadow tampilModalTambah" data-toggle="modal" data-target="#exampleModal">Add</button>
+    <nav class="navbar shadow navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <!-- <a class="nav-item nav-link active" href="#">User <span class="sr-only">(current)</span></a> -->
+                <a class="nav-item nav-link" href="http://localhost/web-orm/index.php">User</a>
+                <a class="nav-item nav-link" href="http://localhost/web-orm/app/views/order/index.php">Order</a>
+                <a class="nav-item nav-link" href="http://localhost/web-orm/app/views/item/index.php">Items</a>
+            </div>
+        </div>
+        <button type="button" class="btn btn-cream mr-3 shadow" data-toggle="modal" data-target="#exampleModal">Add</button>
     </nav>
     <div class="container">
         <table class="table shadow mt-3">
@@ -82,17 +90,17 @@ if (isset($_POST["add"])) {
             </thead>
             <tbody>
                 <?php $no = 1; ?>
-                <?php foreach($user->index() as $row): ?>
-                <tr>
-                    <th scope="row"><?= $no; ?></th>
-                    <td><?= $row['name']; ?></td>
-                    <td><?= $row['email']; ?></td>
-                    <td>
-                        <a href="ubah.php?id=<?= $row['id']; ?>" class="btn-outline-primary"><i class="fa fa-edit"></i></a>
-                        <a href="hapus.php?id=<?= $row['id']; ?>" class="btn-outline-danger"><i class="fa fa-trash-o"></i></a>
-                    </td>
-                </tr>
-                <?php $no++; ?>
+                <?php foreach ($user->index() as $row) : ?>
+                    <tr>
+                        <th scope="row"><?= $no; ?></th>
+                        <td><?= $row['name']; ?></td>
+                        <td><?= $row['email']; ?></td>
+                        <td>
+                            <a href="ubah.php?id=<?= $row['id']; ?>" class="btn-outline-primary"><i class="fa fa-edit"></i></a>
+                            <a href="hapus.php?id=<?= $row['id']; ?>" class="btn-outline-danger"><i class="fa fa-trash-o"></i></a>
+                        </td>
+                    </tr>
+                    <?php $no++; ?>
                 <?php endforeach; ?>
             </tbody>
         </table>

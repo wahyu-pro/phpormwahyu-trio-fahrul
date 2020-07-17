@@ -3,6 +3,7 @@
 namespace Demo\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Demo\Models\Order;
 
 class OrderDetail extends Model
 {
@@ -12,11 +13,11 @@ class OrderDetail extends Model
 
     public function order()
     {
-        return $this->belongsTo('Demo\Models\Order');
+        // return $this->belongsTo('Order', 'id');
     }
 
-    public function item()
-    {
-        return $this->belongsTo('Demo\Models\Item');
-    }
+    // public function item()
+    // {
+    //     return $this->belongsTo('Demo\Models\Item');
+    // }
 }

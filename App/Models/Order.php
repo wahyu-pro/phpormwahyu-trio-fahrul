@@ -3,6 +3,7 @@
 namespace Demo\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Demo\Models\OrderDetail;
 
 class Order extends Model
 {
@@ -10,13 +11,13 @@ class Order extends Model
     // protected $timestamp = true;
     protected $guarded = ["id", "customer_id", "amount", "user_id"]; //mass input
 
-    public function user()
-    {
-        return $this->belongsTo('Demo\Models\User');
-    }
+    // public function order_detail()
+    // {
+    //     // return $this->hashMany('OrderDetail');
+    // }
 
-    public function orderdetail()
-    {
-        return $this->hashMany('Demo\Models\OrderDetail');
-    }
+    // public function orderdetail()
+    // {
+    //     return $this->hashMany('Demo\Models\OrderDetail');
+    // }
 }
