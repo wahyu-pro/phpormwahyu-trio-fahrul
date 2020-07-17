@@ -20,21 +20,21 @@ class OrderDetailController
         return $orderDetailId;
     }
 
-    public function create(Request $request)
+    public function create($object)
     {
         $orderDetail = new OrderDetail();
-        $orderDetail->order_id = $request->input('order_id');
-        $orderDetail->item_id = $request->input('item_id');
+        $orderDetail->order_id = $object->order_id;
+        $orderDetail->item_id = $object->item_id;
         $orderDetail->save();
 
         return $orderDetail;
     }
 
-    public function update(Request $request, $id)
+    public function update($object, $id)
     {
         $orderDetail = OrderDetail::find($id);
-        $orderDetail->order_id = $request->input('order_id');
-        $orderDetail->item_id = $request->input('item_id');
+        $orderDetail->order_id = $object->order_id;
+        $orderDetail->item_id = $object->item_id;
         $orderDetail->save();
 
         return $orderDetail;

@@ -5,6 +5,8 @@ namespace Demo\Controllers;
 use Illuminate\Http\Request;
 
 use Demo\Models\Order;
+use Demo\Models\User;
+use Demo\Models\OrderDetail;
 
 class OrderController
 {
@@ -21,23 +23,23 @@ class OrderController
         return $orderId;
     }
 
-    public function create(Request $request)
+    public function create($object)
     {
         $order = new Order();
-        $order->customer_id = $request->input('customer_id');
-        $order->amount = $request->input('amount');
-        $order->user_id = $request->input('user_id');
+        $order->customer_id = $object->customer_id;
+        $order->amount = $object->amount;
+        $order->user_id = $object->user_id;
         $order->save();
 
         return $order;
     }
 
-    public function update(Request $request, $id)
+    public function update($object, $id)
     {
         $order = Order::find($id);
-        $order->customer_id = $request->input('customer_id');
-        $order->amount = $request->input('amount');
-        $order->user_id = $request->input('user_id');
+        $order->customer_id = $object->customer_id;
+        $order->amount = $object->amount;
+        $order->user_id = $object->user_id;
         $order->save();
 
         return $order;

@@ -2,19 +2,23 @@
 
 require __DIR__.'/../../../vendor/autoload.php';
 
-// use Demo\Models\UserModel;
+use Demo\Models\User;
 // use Demo\Models\Item;
 // use Demo\Models\Order;
 // use Demo\Models\OrderDetail;
 
 use Demo\Controllers\UserController;
 use Demo\Controllers\OrderController;
+use Demo\Controllers\ItemController;
+use Demo\Controllers\OrderDetailController;
 // use Demo\Controllers\OrderDetailController;
 
 $order = new OrderController();
+$item = new ItemController();
 $user = new UserController();
+$orderDetail = new OrderDetailController();
 if (isset($_POST["add"])) {
-    $order->create((object)["customer_id"=>$_POST["customer_id"], "amount"=>$_POST["amount"], "user_id"=>$_POST["user_id"]]);
+    $order->create((object)["customer_id"=>$_POST["customer_id"], "amount"=>$_POST["amount"], "user_id"=>$_POST["user_id"], "item_id"=>$_POST["item_id"]]);
 }
 
 
@@ -52,7 +56,7 @@ if (isset($_POST["add"])) {
                     <th scope="col">No</th>
                     <th scope="col">Customer id</th>
                     <th scope="col">Amount</th>
-                    <th scope="col">User id</th>
+                    <th scope="col">User name</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -68,7 +72,7 @@ if (isset($_POST["add"])) {
                     <th scope="row"><?= $no++; ?></th>
                     <td><?= $row['customer_id']; ?></td>
                     <td><?= $row['amount']; ?></td>
-                    <td><?= $user_name->User->name; ?> </td>
+                    <td><?= $row->User["name"]; ?> </td>
                     <td>
                         <a href="ubah.php?id=<?= $row['id']; ?>" class="btn-outline-primary"><i class="fa fa-edit"></i></a>
                         <a href="hapus.php?id=<?= $row['id']; ?>" class="btn-outline-danger"><i class="fa fa-trash-o"></i></a>
@@ -102,11 +106,21 @@ if (isset($_POST["add"])) {
                         <label>User Name</label>
                             <select class="custom-select" name="user_id" required>
                             <option selected disabled value="">Choose...</option>
-                                <?php foreach ($user->index() as $data): ?>
-                                    <option  value='<?php $data["id"]; ?>'><?php echo $data["name"]?></option>
+                                <?php foreach ($user->index() as $data):?>
+                                    <option  value='<?php echo $data["id"]; ?>'><?php echo $data["name"]?></option>
                                 <?php endforeach;?>
                             </select>
                         </div>
+                        <div class="form-group">
+                        <label>Item</label>
+                            <select class="custom-select" name="item_id" required>
+                            <option selected disabled value="">Choose...</option>
+                                <?php foreach ($item->index() as $data):?>
+                                    <option  value='<?php echo $data["id"]; ?>'><?php echo $data["name"]?></option>
+                                <?php endforeach;?>
+                            </select>
+                        </div>
+                        
 
                         <div class="modal-footer">
                             <button type="submit" name="add" class="btn btn-save">Add</button>

@@ -1,13 +1,13 @@
 <?php
 require __DIR__.'/../../../vendor/autoload.php';
 
-use Demo\Controllers\OrderController;
+use Demo\Controllers\ItemController;
 use Demo\Controllers\UserController;
 
-$order = new OrderController();
+$order = new ItemController();
 $user = new UserController();
 if (isset($_POST["ubah"])) {
-    $order->update((object)["customer_id" => $_POST["customer_id"], "amount" => $_POST["amount"], "user_id" => $_POST["user_id"]], $_GET['id']);
+    $order->update((object)["name" => $_POST["name"], "description" => $_POST["description"], "price" => $_POST["price"]], $_GET['id']);
     header("location: index.php");
     exit;
 }
@@ -36,22 +36,17 @@ $get = $order->findById($_GET['id']);
     <div class="container">
         <form action="" method="post">
             <div class="form-group">
-                <label>Customer Id</label>
-                <input type="number" class="form-control" id="customer_id" value="<?= $get['customer_id']; ?>" name="customer_id" placeholder="Input Customer Id ...">
+                <label>Name</label>
+                <input type="text" class="form-control" id="customer_id" value="<?= $get['name']; ?>" name="name" placeholder="Input Customer Id ...">
             </div>
             <div class="form-group">
-                <label>Amount</label>
-                <input type="number" class="form-control" id="amount" name="amount" value="<?= $get['amount']; ?>" placeholder="Input Amount">
+                <label>Description</label>
+                <input type="text" class="form-control" id="description" name="description" value="<?= $get['description']; ?>" placeholder="Input Description">
             </div>
-        <div class="form-group">
-        <label>User Name</label>
-            <select class="custom-select" name="user_id" required>
-            <option selected disabled value="">Choose...</option>
-                <?php foreach ($user->index() as $data): ?>
-                    <option  value='<?= $data["id"]; ?>'><?php echo $data["name"]?></option>
-                <?php endforeach;?>
-            </select>
-        </div>
+            <div class="form-group">
+                <label>Price</label>
+                <input type="number" class="form-control" id="amount" name="price" value="<?= $get['price']; ?>" placeholder="Input Amount">
+            </div>
             <button type="submit" class="btn btn-primary" name="ubah">Ubah</button>
         </form>
     </div>

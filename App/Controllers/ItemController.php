@@ -22,29 +22,29 @@ class ItemController
         return $itemId;
     }
 
-    public function create(Request $request)
+    public function create($object)
     {
         $item = new Item();
-        $item->name = $request->input('name');
-        $item->description = $request->input('description');
-        $item->price = $request->input('price');
+        $item->name = $object->name;
+        $item->description = $object->description;
+        $item->price = $object->price;
         $item->save();
 
         return $item;
     }
 
-    public function update(Request $request, $id)
+    public function update($object, $id)
     {
         $item = Item::find($id);
-        $item->name = $request->input('name');
-        $item->description = $request->input('description');
-        $item->price = $request->input('price');
+        $item->name = $object->name;
+        $item->description = $object->description;
+        $item->price = $object->price;
         $item->save();
 
         return $item;
     }
 
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
         $item = Item::find($id);
         $item->delete();

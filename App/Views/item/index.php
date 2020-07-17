@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__.'/vendor/autoload.php';
+require __DIR__.'/../../../vendor/autoload.php';
 
 use Demo\Models\UserModel;
 use Demo\Models\Item;
@@ -12,9 +12,9 @@ use Demo\Controllers\ItemController;
 use Demo\Controllers\OrderController;
 use Demo\Controllers\OrderDetailController;
 
-$user = new UserController();
+$item = new ItemController();
 if (isset($_POST["add"])) {
-    $user->create((object)["name"=>$_POST["name"], "description"=>$_POST["description"]]);
+    $item->create((object)["name"=>$_POST["name"], "description"=>$_POST["description"], "price"=>$_POST["price"]]);
 }
 
 ?>
@@ -30,7 +30,7 @@ if (isset($_POST["add"])) {
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <!-- font  -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../../style.css">
 
 </head>
 
@@ -49,17 +49,19 @@ if (isset($_POST["add"])) {
                 <tr>
                     <th scope="col">No</th>
                     <th scope="col">Name</th>
-                    <th scope="col">description</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Price</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
                 <?php $no = 1; ?>
-                <?php foreach($user->index() as $row): ?>
+                <?php foreach($item->index() as $row): ?>
                 <tr>
                     <th scope="row"><?= $no; ?></th>
                     <td><?= $row['name']; ?></td>
                     <td><?= $row['description']; ?></td>
+                    <td><?= $row['price']; ?></td>
                     <td>
                         <a href="ubah.php?id=<?= $row['id']; ?>" class="btn-outline-primary"><i class="fa fa-edit"></i></a>
                         <a href="hapus.php?id=<?= $row['id']; ?>" class="btn-outline-danger"><i class="fa fa-trash-o"></i></a>
@@ -90,7 +92,7 @@ if (isset($_POST["add"])) {
                             <input type="text" class="form-control" id="description" name="description" placeholder="Input description ...">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="prince" name="price" placeholder="Input description ...">
+                            <input type="text" class="form-control" id="price" name="price" placeholder="Input Price ...">
                         </div>
                         <div class="modal-footer">
                             <button type="submit" name="add" class="btn btn-save">Add</button>
