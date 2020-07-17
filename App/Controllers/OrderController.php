@@ -3,6 +3,7 @@
 namespace Demo\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use Demo\Models\Order;
 use Demo\Models\User;

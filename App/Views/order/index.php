@@ -5,7 +5,7 @@ require __DIR__.'/../../../vendor/autoload.php';
 use Demo\Models\User;
 // use Demo\Models\Item;
 // use Demo\Models\Order;
-// use Demo\Models\OrderDetail;
+use Demo\Models\OrderDetail;
 
 use Demo\Controllers\UserController;
 use Demo\Controllers\OrderController;
@@ -18,7 +18,8 @@ $item = new ItemController();
 $user = new UserController();
 $orderDetail = new OrderDetailController();
 if (isset($_POST["add"])) {
-    $order->create((object)["customer_id"=>$_POST["customer_id"], "amount"=>$_POST["amount"], "user_id"=>$_POST["user_id"], "item_id"=>$_POST["item_id"]]);
+    $order->create((object)["customer_id"=>$_POST["customer_id"], "amount"=>$_POST["amount"], "user_id"=>$_POST["user_id"]]);
+    $orderDetail->create((object)["order_id"=>$_POST["order_id"], "item_id"=>$_POST["item_id"]]);
 }
 
 
@@ -57,16 +58,17 @@ if (isset($_POST["add"])) {
                     <th scope="col">Customer id</th>
                     <th scope="col">Amount</th>
                     <th scope="col">User name</th>
+                    <th scope="col">Order Id</th>
+                    <th scope="col">Item Id</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
                 <?php $no = 1; ?>
                 <?php foreach($order->index() as $row):
-                    $user_name = $order->findById($row["user_id"]);
-
                     //   print_r($row);
                 ?>
+
 
                 <tr>
                     <th scope="row"><?= $no++; ?></th>
@@ -120,6 +122,9 @@ if (isset($_POST["add"])) {
                                 <?php endforeach;?>
                             </select>
                         </div>
+                        <?php foreach ($order->index() as $data):?>
+                        <input type="hidden" name="order_id" value="<?php echo $data["id"]; ?>">
+                        <?php endforeach;?>
                         
 
                         <div class="modal-footer">
