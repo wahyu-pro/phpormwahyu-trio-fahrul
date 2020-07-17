@@ -17,13 +17,12 @@ $order = new OrderController();
 $item = new ItemController();
 $user = new UserController();
 $orderDetail = new OrderDetailController();
-var_dump($order->index());die;
 if (isset($_POST["add"])) {
     $order->create((object)["customer_id" => $_POST["customer_id"], "amount" => $_POST["amount"], "user_id" => $_POST["user_id"]]);
     $orderDetail->create((object)["order_id" => $order->index()->last()->id, "item_id" => $_POST["item_id"]]);
 }
 
-
+$url = 'http://localhost/phpormwahyu-trio-fahrul';
 
 ?>
 
@@ -52,9 +51,9 @@ if (isset($_POST["add"])) {
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <!-- <a class="nav-item nav-link active" href="#">User <span class="sr-only">(current)</span></a> -->
-                <a class="nav-item nav-link" href="http://localhost/web-orm/index.php">User</a>
-                <a class="nav-item nav-link" href="http://localhost/web-orm/app/views/order/index.php">Order</a>
-                <a class="nav-item nav-link" href="http://localhost/web-orm/app/views/item/index.php">Items</a>
+                <a class="nav-item nav-link" href=<?php echo $url ."/index.php" ?>>User</a>
+                <a class="nav-item nav-link" href="<?php echo  $url .'/App/Views/order/index.php' ?>">Order</a>
+                <a class="nav-item nav-link" href="<?php echo $url . '/App/Views/item/index.php' ?>">Items</a>
             </div>
         </div>
         <button type="button" class="btn btn-cream mr-3 shadow" data-toggle="modal" data-target="#exampleModal">Add</button>
